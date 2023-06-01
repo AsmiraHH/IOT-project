@@ -96,42 +96,34 @@ void loop() {
       Serial.println("REASON: " + fbdo.errorReason());
     }
     
-    // if (temperatura > 28) {
-    //   digitalWrite(dioda, HIGH);
-    //   delay(3000);
-    //   digitalWrite(dioda, LOW);
-    // }
+    if (temperatura > 28) {
+      digitalWrite(dioda, HIGH);
+      delay(3000);
+      digitalWrite(dioda, LOW);
+    }
 
     Firebase.RTDB.getInt(&fbdo, "parametri/parametarTemperatura");
       parametarTemperatura=fbdo.intData();
     
 
-    // if(parametarTemperatura > 30){
-    //   Firebase.RTDB.setInt(&fbdo, "parametri/komanda", 1);
-    // }
-    // else{
-    //   Firebase.RTDB.setInt(&fbdo, "parametri/komanda", 0);
-    // }
+    if(parametarTemperatura > 30){
+      Firebase.RTDB.setInt(&fbdo, "parametri/komanda", 1);
+    }
+    else{
+      Firebase.RTDB.setInt(&fbdo, "parametri/komanda", 0);
+    }
 
-    // if( Firebase.RTDB.getInt(&fbdo, "parametri/komanda")){
-    //   komanda=fbdo.intData();
-    //   if(komanda==1){
-    //        digitalWrite(dioda, HIGH);
-    //        delay(4000);
-    //        digitalWrite(dioda, LOW);
-    //        delay(1000);
-    //   }
+    if( Firebase.RTDB.getInt(&fbdo, "parametri/komanda")){
+      komanda=fbdo.intData();
+      if(komanda==1){
+           digitalWrite(dioda, HIGH);
+           delay(4000);
+           digitalWrite(dioda, LOW);
+           delay(1000);
+      }
      
-    //   else
-    //    digitalWrite(dioda, LOW);
-    // }
-    
-    analogWrite(dioda,parametarTemperatura);
-    
-    // delay(3000);
-    // digitalWrite(dioda,LOW);
-
-
-
+      else
+       digitalWrite(dioda, LOW);
+    }
     }
 }
