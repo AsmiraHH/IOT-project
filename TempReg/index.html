@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<html lang="en">
+
+</html>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-analytics.js"></script>
+<link rel="stylesheet" href="style.css">
+<script type="text/javascript" src="app.js"></script>
+
+<style>
+    body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgb(105, 104, 104);
+        font-family: sans-serif
+    }
+
+    .container {
+        height: 80vh;
+        background-color: #ffffff;
+        border-color: #ffffff;
+        align-items: center;
+        border-radius: 1rem;
+        vertical-align: middle
+    }
+
+    .card {
+        padding: 1rem;
+        margin-bottom: 4%;
+        border-radius: 1rem;
+        background-color: rgba(238, 237, 237, 0.22);
+        border-color: rgba(238, 237, 237, 0.22);
+        box-shadow: 5px 6px 6px 2px #e9ecef;
+        text-align: center;
+        border: grey 1px solid;
+    }
+
+    .icon {
+        align-self: flex-end;
+        margin-right: -2.5rem;
+        margin-top: -2rem;
+        z-index: 999
+    }
+
+    .icon img {
+        width: 5rem
+    }
+
+    .btn {
+        margin-top: 2%;
+        margin-left: 85%;
+    }
+</style>
+
+<head>
+    <title>Temperatura</title>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+
+        var firebaseConfig = {
+            apiKey: "AIzaSyCGj-Obwg-UTdPaqYYSebJCYpdd4HTk7y8",
+            authDomain: "temperature-regulation.firebaseapp.com",
+            databaseURL: "https://temperature-regulation-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "temperature-regulation",
+            storageBucket: "temperature-regulation.appspot.com",
+            messagingSenderId: "199272287944",
+            appId: "1:199272287944:web:91fd95dc6cd77eccdc9ffd",
+            measurementId: "G-B6QY908FSK"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+
+        var tempZraka = document.getElementById('tempInput');
+        var btn = document.getElementById('btn');
+        var temperatura = firebase.database().ref().child('parametri/temperatura');
+        var relej = firebase.database().ref().child('PWS/relej');
+        var signal = firebase.database().ref().child('PWS/signal');
+
+        temperatura.on('value', (podatak) => {
+            var vrijednost = podatak.val();
+            tempZrak.innerHTML = vrijednost + "°C";
+            var temp = document.getElementById('klasa');
+        });
+
+
+    </script>
+</head>
+
+<body background="https://cdn.hswstatic.com/gif/why-is-sky-blue.jpg"
+    style="background-repeat: no-repeat; background-size: cover;">
+    <div class="container d-flex justify-content-center">
+        <br>
+        <div class="row">
+            <div class=" col-md-12">
+                <div class="card"> <span class="icon"><img class="img-fluid"
+                            src="https://img.icons8.com/emoji/96/000000/sun-emoji.png" /></span>
+                    <div class="title">
+                        <h4>Trenutna temperatura</h4>
+                        <br>
+                    </div>
+                    <div class="card1" id="klasa">
+                        <h2 id="tempZrak"></h2>
+                        <br>
+                    </div>
+                    <div class="row">
+                    </div>
+                </div>
+            </div>
+            <div class=" col-md-12">
+                <label for="input">Podesite temperaturu: </label>
+                <input type="number" class="form-control" id="tempInput" name="input">
+                <button id="btn" class="btn btn-primary" onclick="spasiPodatke()">Podesi</button>
+                <button id="btn1" class="btn btn-primary" onclick="svijetli()">Svijetli</button>
+            </div>
+        </div>
+</body>
+
+</html>
